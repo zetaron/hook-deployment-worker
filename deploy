@@ -1,0 +1,20 @@
+#!/bin/sh
+set -ex
+
+if [ -f "$(pwd)/hooks/pre_deploy" ]
+then
+    . "$(pwd)/hooks/pre_deploy"
+fi
+
+if [ -f "$(pwd)/hooks/deploy" ]
+then
+    . "$(pwd)/hooks/deploy"
+else
+    echo "=> [ERROR]: You must have a `deploy` script inside your `hooks` directory!"
+    exit 1
+fi
+
+if [ -f "$(pwd)/hooks/post_deploy" ]
+then
+    . "$(pwd)/hooks/post_deploy"
+fi
